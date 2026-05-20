@@ -23,10 +23,11 @@ func StrictRateLimit() gin.HandlerFunc {
 	return mgin.NewMiddleware(instance)
 }
 
-// Super strict rate limit — 3 request per jam (untuk register, forgot password, resend otp)
+// Super strict rate limit — sementara 100x per jam untuk testing
 func SuperStrictRateLimit() gin.HandlerFunc {
-	rate, _ := limiter.NewRateFromFormatted("3-H")
+	rate, _ := limiter.NewRateFromFormatted("100-H")
 	store := memory.NewStore()
 	instance := limiter.New(store, rate)
 	return mgin.NewMiddleware(instance)
+
 }
