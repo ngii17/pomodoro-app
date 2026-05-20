@@ -2,10 +2,10 @@ FROM golang:1.21-alpine
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY pomodoro/go.mod pomodoro/go.sum ./
 RUN go mod download
 
-COPY . .
+COPY pomodoro/ .
 
 RUN go build -o main .
 
