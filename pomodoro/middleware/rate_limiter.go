@@ -7,27 +7,23 @@ import (
 	"github.com/ulule/limiter/v3/drivers/store/memory"
 )
 
-// Global rate limit — 60 request per menit
 func GlobalRateLimit() gin.HandlerFunc {
-	rate, _ := limiter.NewRateFromFormatted("60-M")
+	rate, _ := limiter.NewRateFromFormatted("1000-M")
 	store := memory.NewStore()
 	instance := limiter.New(store, rate)
 	return mgin.NewMiddleware(instance)
 }
 
-// Strict rate limit — 5 request per menit (untuk login)
 func StrictRateLimit() gin.HandlerFunc {
-	rate, _ := limiter.NewRateFromFormatted("5-M")
+	rate, _ := limiter.NewRateFromFormatted("1000-M")
 	store := memory.NewStore()
 	instance := limiter.New(store, rate)
 	return mgin.NewMiddleware(instance)
 }
 
-// Super strict rate limit — sementara 100x per jam untuk testing
 func SuperStrictRateLimit() gin.HandlerFunc {
-	rate, _ := limiter.NewRateFromFormatted("100-H")
+	rate, _ := limiter.NewRateFromFormatted("1000-M")
 	store := memory.NewStore()
 	instance := limiter.New(store, rate)
 	return mgin.NewMiddleware(instance)
-
 }
